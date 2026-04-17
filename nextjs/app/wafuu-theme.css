@@ -1,0 +1,343 @@
+/* ===============================
+   和風テーマ — Tailwind移行版
+   =============================== */
+
+/* --- 和風ページ共通レイアウト --- */
+.wafuu-page {
+	@apply relative min-h-screen flex flex-col overflow-hidden;
+}
+
+/* --- 背景 --- */
+.wafuu-bg {
+	@apply fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat;
+}
+
+.wafuu-bg::after {
+	@apply content-[""] absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[rgba(10,10,20,0.3)] to-[rgba(10,10,20,0.65)];
+}
+
+/* --- ヘッダー --- */
+.wafuu-header {
+	@apply fixed top-0 left-0 right-0 z-10 pointer-events-auto flex items-center justify-between px-6 py-4 bg-[rgba(10,8,5,0.6)] backdrop-blur-xl border-b border-[rgba(212,175,55,0.15)];
+}
+
+.wafuu-header-logo {
+	@apply text-[#f5e6c8] text-[1.2rem] font-bold tracking-widest no-underline [text-shadow:0_0_12px_rgba(212,175,55,0.4)];
+}
+
+.wafuu-header-right {
+	@apply flex items-center gap-3;
+}
+
+.wafuu-header-username {
+	@apply text-[rgba(245,230,200,0.7)] text-[0.85rem];
+}
+
+.wafuu-header-btn {
+	@apply px-3.5 py-1.5 border border-[rgba(212,175,55,0.3)] rounded-lg bg-transparent text-[rgba(245,230,200,0.7)] text-[0.8rem] cursor-pointer transition-all duration-300;
+}
+
+.wafuu-header-btn:hover {
+	@apply bg-[rgba(212,175,55,0.1)] text-[#f5e6c8] border-[rgba(212,175,55,0.5)];
+}
+
+/* --- コンテンツ --- */
+.wafuu-content {
+	@apply relative z-[1] flex-1 flex flex-col items-center justify-center px-5 py-8;
+}
+
+/* --- 見出し --- */
+.wafuu-heading {
+	@apply text-[#f5e6c8] text-[1.6rem] font-bold tracking-widest [text-shadow:0_2px_8px_rgba(0,0,0,0.8)] mb-6 text-center;
+}
+
+.wafuu-subheading {
+	@apply text-[rgba(245,230,200,0.5)] text-[0.85rem] tracking-[0.2em] -mt-4 mb-6 text-center;
+}
+
+/* --- カード --- */
+.wafuu-card {
+	@apply w-full max-w-[440px] bg-[rgba(20,15,10,0.85)] backdrop-blur-2xl border border-[rgba(212,175,55,0.15)] rounded-2xl p-[28px_24px] shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(212,175,55,0.1)];
+}
+
+/* --- メニューアイテム --- */
+.wafuu-menu {
+	@apply flex flex-col gap-3 w-full max-w-[440px];
+}
+
+.wafuu-menu-item {
+	@apply flex items-center gap-4 p-[18px_20px] bg-[rgba(20,15,10,0.8)] backdrop-blur-xl border border-[rgba(212,175,55,0.12)] rounded-[14px] no-underline cursor-pointer transition-all duration-300;
+}
+
+.wafuu-menu-item:hover {
+	@apply bg-[rgba(212,175,55,0.1)] border-[rgba(212,175,55,0.35)] translate-x-1;
+}
+
+.wafuu-menu-icon {
+	@apply text-[1.5rem] w-10 text-center shrink-0;
+}
+
+.wafuu-menu-text {
+	@apply flex-1;
+}
+
+.wafuu-menu-title {
+	@apply text-[#f5e6c8] text-base font-semibold;
+}
+
+.wafuu-menu-desc {
+	@apply text-[rgba(245,230,200,0.45)] text-[0.8rem] mt-0.5;
+}
+
+.wafuu-menu-arrow {
+	@apply text-[rgba(212,175,55,0.4)] text-[1.2rem] transition-all duration-300;
+}
+
+.wafuu-menu-item:hover .wafuu-menu-arrow {
+	@apply text-[rgba(212,175,55,0.8)] translate-x-1;
+}
+
+/* --- ボタン --- */
+.wafuu-btn-primary {
+	@apply w-full py-3.5 border-none rounded-xl bg-gradient-to-br from-[#b8860b] via-[#d4af37] to-[#b8860b] text-[#1a1208] text-base font-bold tracking-widest cursor-pointer transition-all duration-300 shadow-[0_4px_16px_rgba(212,175,55,0.3)];
+}
+
+.wafuu-btn-primary:hover {
+	@apply -translate-y-px shadow-[0_6px_24px_rgba(212,175,55,0.4)] bg-gradient-to-br from-[#d4af37] via-[#f0d060] to-[#d4af37];
+}
+
+.wafuu-btn-primary:disabled {
+	@apply opacity-50 cursor-not-allowed translate-y-0;
+}
+
+.wafuu-btn-secondary {
+	@apply w-full py-3.5 border border-[rgba(212,175,55,0.3)] rounded-xl bg-[rgba(212,175,55,0.08)] text-[#f5e6c8] text-base font-semibold tracking-wider cursor-pointer transition-all duration-300;
+}
+
+.wafuu-btn-secondary:hover {
+	@apply bg-[rgba(212,175,55,0.15)] border-[rgba(212,175,55,0.5)];
+}
+
+.wafuu-btn-outline {
+	@apply w-full py-2.5 border border-[rgba(245,230,200,0.15)] rounded-xl bg-transparent text-[rgba(245,230,200,0.5)] text-[0.9rem] cursor-pointer transition-all duration-300 text-center no-underline block;
+}
+
+.wafuu-btn-outline:hover {
+	@apply border-[rgba(245,230,200,0.3)] text-[rgba(245,230,200,0.8)];
+}
+
+/* --- フォーム --- */
+.wafuu-input {
+	@apply w-full p-[12px_14px] bg-[rgba(245,230,200,0.06)] border border-[rgba(212,175,55,0.15)] rounded-xl text-[#f5e6c8] text-[0.95rem] outline-none transition-all duration-300 box-border;
+}
+
+.wafuu-input::placeholder {
+	@apply text-[rgba(245,230,200,0.25)];
+}
+
+.wafuu-input:focus {
+	@apply border-[rgba(212,175,55,0.5)] bg-[rgba(245,230,200,0.1)] shadow-[0_0_12px_rgba(212,175,55,0.1)];
+}
+
+.wafuu-label {
+	@apply text-[0.8rem] text-[rgba(245,230,200,0.6)] font-medium tracking-wider mb-1.5 block;
+}
+
+/* --- エラー --- */
+.wafuu-error {
+	@apply bg-[rgba(200,50,50,0.15)] border border-[rgba(200,50,50,0.3)] rounded-xl p-[10px_14px] text-[#ff8888] text-[0.85rem] mb-3;
+}
+
+/* --- ステータスバッジ --- */
+.wafuu-badge {
+	@apply inline-flex items-center gap-1.5 px-3 py-1 rounded-[20px] text-[0.75rem] font-semibold;
+}
+
+.wafuu-badge-success {
+	@apply bg-[rgba(34,197,94,0.15)] text-[#4ade80] border border-[rgba(34,197,94,0.2)];
+}
+
+.wafuu-badge-warning {
+	@apply bg-[rgba(234,179,8,0.15)] text-[#fbbf24] border border-[rgba(234,179,8,0.2)];
+}
+
+.wafuu-badge-info {
+	@apply bg-[rgba(59,130,246,0.15)] text-[#60a5fa] border border-[rgba(59,130,246,0.2)];
+}
+
+/* --- 待機アニメーション --- */
+.wafuu-pulse {
+	@apply animate-pulse;
+}
+
+/* --- ユーティリティ --- */
+.wafuu-gap-8 {
+	@apply gap-2;
+}
+
+.wafuu-gap-12 {
+	@apply gap-3;
+}
+
+.wafuu-gap-16 {
+	@apply gap-4;
+}
+
+.wafuu-mt-8 {
+	@apply mt-2;
+}
+
+.wafuu-mt-12 {
+	@apply mt-3;
+}
+
+.wafuu-mt-16 {
+	@apply mt-4;
+}
+
+.wafuu-text-center {
+	@apply text-center;
+}
+
+.wafuu-flex-col {
+	@apply flex flex-col;
+}
+
+/* ===============================
+   プロフィール表示用スタイル
+   =============================== */
+
+
+/* --- アバター --- */
+.wafuu-profile-avatar {
+	@apply w-[120px] h-[120px] rounded-full object-cover;
+	border: 4px solid rgba(212, 175, 55, 0.8);
+	box-shadow:
+		0 0 0 2px rgba(10, 8, 5, 0.8),
+		0 0 0 6px rgba(212, 175, 55, 0.3),
+		0 0 20px rgba(212, 175, 55, 0.3);
+	transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+.wafuu-profile-avatar:hover {
+	box-shadow:
+		0 0 25px rgba(212, 175, 55, 0.35),
+		0 0 50px rgba(212, 175, 55, 0.15);
+	transform: scale(1.03);
+}
+
+/* --- プロフィール名 --- */
+.wafuu-profile-name {
+	@apply text-[1.6rem] font-bold tracking-widest text-center;
+	color: #f5e6c8;
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* --- オンラインステータスドット --- */
+.wafuu-status-dot {
+	@apply inline-block w-[8px] h-[8px] rounded-full mr-1.5;
+}
+
+.wafuu-status-dot-online {
+	background: #4ade80;
+	box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+	animation: statusPulse 2s ease-in-out infinite;
+}
+
+.wafuu-status-dot-offline {
+	background: #888;
+}
+
+@keyframes statusPulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.4; }
+}
+
+/* --- 統計グリッド（2カラム） --- */
+.wafuu-stat-grid {
+	@apply grid gap-3;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.wafuu-stat-item {
+	@apply flex flex-col items-center p-3 rounded-xl;
+	background: rgba(212, 175, 55, 0.06);
+	border: 1px solid rgba(212, 175, 55, 0.1);
+	transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.wafuu-stat-item:hover {
+	background: rgba(212, 175, 55, 0.12);
+	border-color: rgba(212, 175, 55, 0.25);
+}
+
+/* 3カラム（総対戦数を中央に配置する場合などに使用） */
+.wafuu-stat-grid-3 {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.wafuu-stat-value {
+	@apply text-[1.4rem] font-bold;
+	color: #f5e6c8;
+}
+
+.wafuu-stat-label {
+	@apply text-[0.75rem] tracking-wider mt-0.5;
+	color: rgba(245, 230, 200, 0.45);
+}
+
+
+/* --- セクション区切り --- */
+.wafuu-divider {
+	@apply w-full my-4;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.25), transparent);
+}
+
+/* --- 情報行（ラベル+値） --- */
+.wafuu-info-row {
+	@apply flex justify-between items-center py-2;
+	border-bottom: 1px solid rgba(212, 175, 55, 0.06);
+}
+
+.wafuu-info-row:last-child {
+	border-bottom: none;
+}
+
+.wafuu-info-label {
+	@apply text-[0.85rem];
+	color: rgba(245, 230, 200, 0.5);
+}
+
+.wafuu-info-value {
+	@apply text-[0.9rem] font-medium;
+	color: #f5e6c8;
+}
+
+/* --- セクションタイトル --- */
+.wafuu-section-title {
+	@apply flex items-center gap-2 text-[0.9rem] font-semibold tracking-wider mb-3;
+	color: rgba(245, 230, 200, 0.7);
+}
+
+/* フェードイン（プロフィールカード表示時） */
+@keyframes wafuuFadeUp {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.wafuu-fade-up {
+	animation: wafuuFadeUp 0.5s ease-out both;
+}
+
+/* 各カードにディレイを付けて順番にフェードイン */
+.wafuu-fade-up-1 { animation-delay: 0.1s; }
+.wafuu-fade-up-2 { animation-delay: 0.25s; }
+.wafuu-fade-up-3 { animation-delay: 0.4s; }
+.wafuu-fade-up-4 { animation-delay: 0.55s; }

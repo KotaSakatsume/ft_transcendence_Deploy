@@ -1,0 +1,139 @@
+/* ===============================
+   Login Page — Tailwind移行版
+   =============================== */
+
+.login-page {
+    @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+}
+
+/* --- 背景画像 --- */
+.login-bg {
+    @apply fixed top-0 left-0 w-full h-full z-0 bg-[url("/images/login-bg.png")] bg-cover bg-center bg-no-repeat;
+}
+
+/* --- 暗いオーバーレイ --- */
+.login-bg::after {
+    @apply content-[""] absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[rgba(10,10,20,0.4)] to-[rgba(10,10,20,0.7)];
+}
+
+/* --- コンテンツ --- */
+.login-content {
+    @apply relative z-[1] flex flex-col items-center gap-6 w-full max-w-[420px] px-5;
+}
+
+/* --- タイトル --- */
+.login-title {
+    @apply text-center text-[#f5e6c8] text-[2.4rem] font-extrabold tracking-widest [text-shadow:0_0_20px_rgba(212,175,55,0.5),0_2px_8px_rgba(0,0,0,0.8)] m-0;
+}
+
+.login-subtitle {
+    @apply text-[rgba(245,230,200,0.6)] text-[0.85rem] tracking-[0.3em] -mt-2;
+}
+
+/* --- カード --- */
+.login-card {
+    @apply w-full bg-[rgba(20,15,10,0.85)] backdrop-blur-2xl border border-[rgba(212,175,55,0.15)] rounded-2xl p-[32px_28px] shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(212,175,55,0.1)];
+}
+
+/* --- タブ --- */
+.login-tabs {
+    @apply flex gap-0 mb-6 rounded-[10px] overflow-hidden border border-[rgba(212,175,55,0.2)];
+}
+
+.login-tab {
+    @apply flex-1 py-2.5 border-none bg-transparent text-[rgba(245,230,200,0.5)] text-[0.9rem] font-semibold cursor-pointer transition-all duration-300 tracking-wider;
+}
+
+.login-tab:hover {
+    @apply text-[rgba(245,230,200,0.8)] bg-[rgba(212,175,55,0.05)];
+}
+
+.login-tab-active {
+    @apply bg-[rgba(212,175,55,0.15)] text-[#f5e6c8];
+}
+
+/* --- フォーム --- */
+.login-form {
+    @apply flex flex-col gap-[18px];
+}
+
+.login-field {
+    @apply flex flex-col gap-1.5;
+}
+
+.login-label {
+    @apply text-[0.8rem] text-[rgba(245,230,200,0.6)] font-medium tracking-wider;
+}
+
+.login-input {
+    @apply p-[12px_14px] bg-[rgba(245,230,200,0.06)] border border-[rgba(212,175,55,0.15)] rounded-xl text-[#f5e6c8] text-[0.95rem] outline-none transition-all duration-300;
+}
+
+.login-input::placeholder {
+    @apply text-[rgba(245,230,200,0.25)];
+}
+
+.login-input:focus {
+    @apply border-[rgba(212,175,55,0.5)] bg-[rgba(245,230,200,0.1)] shadow-[0_0_12px_rgba(212,175,55,0.1)];
+}
+
+/* --- エラー --- */
+.login-error {
+    @apply bg-[rgba(200,50,50,0.15)] border border-[rgba(200,50,50,0.3)] rounded-xl p-[10px_14px] text-[#ff8888] text-[0.85rem] mb-1;
+}
+
+/* --- ボタン --- */
+.login-btn {
+    @apply mt-2 py-3.5 border-none rounded-xl bg-gradient-to-br from-[#b8860b] via-[#d4af37] to-[#b8860b] text-[#1a1208] text-base font-bold tracking-widest cursor-pointer transition-all duration-300 shadow-[0_4px_16px_rgba(212,175,55,0.3)];
+}
+
+.login-btn:hover {
+    @apply -translate-y-px shadow-[0_6px_24px_rgba(212,175,55,0.4)] bg-gradient-to-br from-[#d4af37] via-[#f0d060] to-[#d4af37];
+}
+
+.login-btn:active {
+    @apply translate-y-0;
+}
+
+.login-btn:disabled {
+    @apply opacity-50 cursor-not-allowed translate-y-0;
+}
+
+/* --- OAuth セパレーター --- */
+.oauth-separator {
+    @apply flex items-center my-6 text-[rgba(245,230,200,0.3)] text-[0.8rem];
+}
+
+.oauth-separator::before,
+.oauth-separator::after {
+    @apply content-[""] flex-1 h-[1px] bg-[rgba(212,175,55,0.15)];
+}
+
+.oauth-separator span {
+    @apply px-3;
+}
+
+/* --- OAuth ボタン --- */
+.oauth-buttons {
+    @apply flex flex-col gap-3;
+}
+
+.oauth-btn {
+    @apply flex items-center justify-center p-3 rounded-xl text-[0.9rem] font-semibold cursor-pointer transition-all duration-300 border border-[rgba(212,175,55,0.2)];
+}
+
+.github-btn {
+    @apply bg-[#24292e] text-white;
+}
+
+.github-btn:hover {
+    @apply bg-[#33393f] border-[rgba(212,175,55,0.4)];
+}
+
+.google-btn {
+    @apply bg-white text-[#1a1a1a];
+}
+
+.google-btn:hover {
+    @apply bg-[#f1f1f1] border-[rgba(212,175,55,0.4)];
+}
