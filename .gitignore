@@ -1,33 +1,15 @@
-# Dependencies
-node_modules/
-**/node_modules/
-
-# Next.js build output
-.next/
-nextjs/.next/
-**/out/
-
-# Environment files
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Databases
+node_modules/
+.next/
 postgres-data/
-
-# Build artifacts
 dist/
-build/
 *.log
 *.o
 engine
 legal_checker
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Gemini/AI specific
+nextjs/public/images/icon/*.png
+*.pdf
+node_modules/
+.next/
 .gemini
+.gitignore
