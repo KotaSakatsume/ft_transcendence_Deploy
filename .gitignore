@@ -5,7 +5,6 @@ postgres-data/
 dist/
 *.log
 *.o
-engine
 legal_checker
 nextjs/public/images/icon/*.png
 *.pdf
