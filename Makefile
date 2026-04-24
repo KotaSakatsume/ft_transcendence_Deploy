@@ -2,36 +2,37 @@
 
 # 本番用
 prod:
-	docker compose -f docker-compose.yml up --build -d
+	docker-compose -f docker-compose.yml up --build -d
 	@echo "本番用環境が起動しました"
 
 # 開発・テスト用
 test:
-	docker compose -f docker-compose.dev.yml up --build -d
+	docker-compose -f docker-compose.dev.yml up --build -d
 	@echo "開発用環境が起動しました（ホットリロード有効）"
 
 # 開発環境の停止
 down-test:
-	docker compose -f docker-compose.dev.yml down
+	docker-compose -f docker-compose.dev.yml down
 
 # 本番環境の停止
 down-prod:
-	docker compose down
+	docker-compose -f docker-compose.yml down
 
 # 未使用イメージの削除
 rmi:
 	docker image prune -a -f
 
+# Prisma Studio
 studio:
-	docker compose -f docker-compose.dev.yml exec nextjs npx prisma studio
+	docker-compose -f docker-compose.dev.yml exec nextjs npx prisma studio
 
 re: down-prod rmi prod
 
-# AWS対応
+# AWS/GCP対応
 aws:
-	docker compose -f docker-compose.aws.yml up --build -d
-	@echo "AWS環境が起動しました"
+	docker-compose -f docker-compose.aws.yml up --build -d
+	@echo "デプロイ環境が起動しました"
 
 down-aws:
-	docker compose -f docker-compose.aws.yml down
+	docker-compose -f docker-compose.aws.yml down
 
