@@ -8,10 +8,10 @@ export const getSocket = (): Socket => {
   if (!socket) {
     const protocol = typeof window !== "undefined" ? window.location.protocol : "http:";
     const host = typeof window !== "undefined" ? window.location.hostname : "localhost";
-    const port = typeof window !== "undefined" ? window.location.port || "8080" : "8080";
+    const port = typeof window !== "undefined" ? window.location.port : "";
     
-    // In Docker setup, Nginx is on 8080.
-    const wsUrl = `${protocol}//${host}:${port}`;
+    // If port is present, add it to the URL, otherwise use the host alone (standard ports)
+    const wsUrl = port ? `${protocol}//${host}:${port}` : `${protocol}//${host}`;
     
     socket = io(wsUrl, {
       transports: ["websocket"],
