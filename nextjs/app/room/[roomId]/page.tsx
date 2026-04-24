@@ -39,11 +39,9 @@ export default function RoomPage() {
 	const userId = (session?.user as { id?: string } | undefined)?.id ?? null;
 
 
-	const host = typeof window !== "undefined" ? window.location.hostname : "localhost";
-	const wsUrl = `https://${host}:8080`;
 	// WebSocket接続
 	useEffect(() => {
-		const s = io(wsUrl);
+		const s = getSocket();
 
 		s.on("connect", () => {
 			setMySocketId(s.id ?? null);
@@ -63,9 +61,12 @@ export default function RoomPage() {
 		setSocket(s);
 
 		return () => {
-			s.disconnect();
+			s.off("connect");
+			s.off("roomState");
+			s.off("gameStart");
+			s.off("playerLeft");
 		};
-	}, [roomId, userId]);
+	}, [roomId, userId, router]);
 
 	const playerCount = roomState?.players?.length ?? (isHost ? 1 : 0);
 	const amIHost = mySocketId ? roomState?.hostSocketId === mySocketId : isHost;

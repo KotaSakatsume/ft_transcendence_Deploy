@@ -18,13 +18,9 @@ export default function OnlineMatchPage() {
 	const userId = useUser();
 
 	useEffect(() => {
-		const host = typeof window !== "undefined" ? window.location.hostname : "localhost";
-		const wsUrl = `https://${host}:8080`;
-
-		const s = io(wsUrl);
+		const s = getSocket();
 
 		s.on("connect", () => {
-			// console.log("[WS] Connected. ID:", s.id);
 			setWsStatus("connected");
 			s.emit("joinRoom", {
 				roomId: roomId,
@@ -38,7 +34,6 @@ export default function OnlineMatchPage() {
 		});
 
 		s.on("roomState", (state: { players: { socketId: string, userId?: string, side: "b" | "w" }[], messages?: any[] }) => {
-			// console.log("[WS] Room state update:", state);
 			const me = state.players.find((p) =>
 				(userId && p.userId === userId) || p.socketId === s.id
 			);
@@ -55,7 +50,9 @@ export default function OnlineMatchPage() {
 		setSocket(s);
 
 		return () => {
-			s.disconnect();
+			s.off("connect");
+			s.off("disconnect");
+			s.off("roomState");
 		};
 	}, [roomId, userId]);
 
