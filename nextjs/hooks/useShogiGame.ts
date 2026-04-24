@@ -128,9 +128,9 @@ export function useShogiGame(
 		const handleSyncState = (data: { sfen: string }) => {
 			const syncedBoard = sfenToUIBoard(data.sfen);
 			syncBoardState(syncedBoard);
+			setGotSfen(true);
 		};
 
-		setGotSfen(true);
 		socket.on("syncState", handleSyncState);
 		return () => {
 			socket.off("syncState", handleSyncState);
