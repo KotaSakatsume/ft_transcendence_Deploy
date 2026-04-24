@@ -16,7 +16,12 @@ echo "[generate-cert] Generating certificate for IP: ${CERT_IP}"
 if [ "$CERT_IP" = "localhost" ]; then
   SAN="DNS:localhost"
 else
-  SAN="DNS:localhost, IP:${CERT_IP}"
+  # IPアドレスかドメイン名かを判定
+  if echo "$CERT_IP" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'; then
+    SAN="DNS:localhost, IP:${CERT_IP}"
+  else
+    SAN="DNS:localhost, DNS:${CERT_IP}"
+  fi
 fi
 
 openssl req -x509 -nodes -days 365 \
