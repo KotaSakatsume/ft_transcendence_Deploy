@@ -34,18 +34,34 @@ export default function RoomPage() {
 	const isHost = searchParams.get("host") === "true";
 	const [copied, setCopied] = useState(false);
 	const [socket, setSocket] = useState<Socket | null>(null);
+	const [wsStatus, setWsStatus] = useState<"connecting" | "connected" | "disconnected">("connecting");
 	const [roomState, setRoomState] = useState<RoomState | null>(null);
 	const [mySocketId, setMySocketId] = useState<string | null>(null);
 	const userId = (session?.user as { id?: string } | undefined)?.id ?? null;
-
 
 	// WebSocket接続
 	useEffect(() => {
 		const s = getSocket();
 
-		s.on("connect", () => {
+		if (s.connected) {
+			setWsStatus("connected");
 			setMySocketId(s.id ?? null);
 			s.emit("joinRoom", { roomId, userId, isPlayer: true });
+		}
+
+		s.on("connect", () => {
+			setWsStatus("connected");
+			setMySocketId(s.id ?? null);
+			s.emit("joinRoom", { roomId, userId, isPlayer: true });
+		});
+
+		s.on("connect_error", (err) => {
+			console.error("[WS] Connection Error:", err);
+			setWsStatus("disconnected");
+		});
+
+		s.on("disconnect", () => {
+			setWsStatus("disconnected");
 		});
 
 		s.on("roomState", (state: RoomState) => {
@@ -212,17 +228,27 @@ export default function RoomPage() {
 					<div
 						style={{
 							textAlign: "center",
-							color: playerCount < 2
-								? "rgba(245, 230, 200, 0.5)"
-								: "#4ade80",
+							color: wsStatus === "connected" 
+								? (playerCount < 2 ? "#d4af37" : "#4ade80")
+								: "#f87171",
 							fontSize: "0.9rem",
 							marginBottom: "20px",
+							display: "flex",
+							flexDirection: "column",
+							gap: "4px"
 						}}
-						className={playerCount < 2 ? "wafuu-pulse" : ""}
 					>
-						{playerCount < 2
-							? "相手の参加を待っています..."
-							: "✅ 2人揃いました！"}
+						<div className={wsStatus === "connecting" ? "wafuu-pulse" : ""}>
+							{wsStatus === "connected" ? "● サーバー接続済み" : 
+							 wsStatus === "connecting" ? "◌ サーバーに接続中..." : "× 接続エラー（再読込してください）"}
+						</div>
+						{wsStatus === "connected" && (
+							<div className={playerCount < 2 ? "wafuu-pulse" : ""} style={{ fontSize: "0.8rem", opacity: 0.8 }}>
+								{playerCount < 2
+									? "相手の参加を待っています..."
+									: "✅ 2人揃いました！"}
+							</div>
+						)}
 					</div>
 
 					{/* アクションボタン */}
