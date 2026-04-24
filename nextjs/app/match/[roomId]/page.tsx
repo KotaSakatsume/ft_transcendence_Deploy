@@ -20,14 +20,20 @@ export default function OnlineMatchPage() {
 	useEffect(() => {
 		const s = getSocket();
 
-		s.on("connect", () => {
+		const onConnect = () => {
 			setWsStatus("connected");
 			s.emit("joinRoom", {
 				roomId: roomId,
 				isPlayer: true,
 				userId: userId
 			});
-		});
+		};
+
+		if (s.connected) {
+			onConnect();
+		} else {
+			s.on("connect", onConnect);
+		}
 
 		s.on("disconnect", () => {
 			setWsStatus("disconnected");
@@ -50,7 +56,7 @@ export default function OnlineMatchPage() {
 		setSocket(s);
 
 		return () => {
-			s.off("connect");
+			s.off("connect", onConnect);
 			s.off("disconnect");
 			s.off("roomState");
 		};

@@ -43,17 +43,17 @@ export default function RoomPage() {
 	useEffect(() => {
 		const s = getSocket();
 
-		if (s.connected) {
+		const onConnect = () => {
 			setWsStatus("connected");
 			setMySocketId(s.id ?? null);
 			s.emit("joinRoom", { roomId, userId, isPlayer: true });
-		}
+		};
 
-		s.on("connect", () => {
-			setWsStatus("connected");
-			setMySocketId(s.id ?? null);
-			s.emit("joinRoom", { roomId, userId, isPlayer: true });
-		});
+		if (s.connected) {
+			onConnect();
+		} else {
+			s.on("connect", onConnect);
+		}
 
 		s.on("connect_error", (err) => {
 			console.error("[WS] Connection Error:", err);
@@ -77,7 +77,7 @@ export default function RoomPage() {
 		setSocket(s);
 
 		return () => {
-			s.off("connect");
+			s.off("connect", onConnect);
 			s.off("roomState");
 			s.off("gameStart");
 			s.off("playerLeft");
