@@ -18,8 +18,15 @@ export default function OnlineMatchPage() {
 	const userId = useUser();
 
 	useEffect(() => {
-		const s = getSocket();
+		// スクロール禁止を強力に適用
+		const html = document.documentElement;
+		const body = document.body;
+		html.style.overflow = "hidden";
+		body.style.overflow = "hidden";
+		html.style.height = "100%";
+		body.style.height = "100%";
 
+		const s = getSocket();
 		const onConnect = () => {
 			setWsStatus("connected");
 			s.emit("joinRoom", {
@@ -56,6 +63,11 @@ export default function OnlineMatchPage() {
 		setSocket(s);
 
 		return () => {
+			// クリーンアップ（元に戻す）
+			html.style.overflow = "";
+			body.style.overflow = "";
+			html.style.height = "";
+			body.style.height = "";
 			s.off("connect", onConnect);
 			s.off("disconnect");
 			s.off("roomState");
@@ -63,13 +75,25 @@ export default function OnlineMatchPage() {
 	}, [roomId, userId]);
 
 	return (
-		<MatchBoard
-			roomId={roomId}
-			socket={socket}
-			wsStatus={wsStatus}
-			mySide={mySide}
-			isPreparing={wsStatus === "connecting"}
-			initialMessages={initialMessages}
-		/>
+		<>
+			{/* 標準のstyleタグを使用して確実にフッターを消す */}
+			<style dangerouslySetInnerHTML={{ __html: `
+				footer.site-footer {
+					display: none !important;
+				}
+				body {
+					position: fixed;
+					width: 100%;
+				}
+			` }} />
+			<MatchBoard
+				roomId={roomId}
+				socket={socket}
+				wsStatus={wsStatus}
+				mySide={mySide}
+				isPreparing={wsStatus === "connecting"}
+				initialMessages={initialMessages}
+			/>
+		</>
 	);
 }

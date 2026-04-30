@@ -2,7 +2,7 @@
 
 # 本番用
 prod:
-	docker-compose -f docker-compose.yml up --build -d
+	docker compose -f docker-compose.yml up --build -d
 	@echo "本番用環境が起動しました"
 
 # 開発・テスト用
@@ -16,7 +16,7 @@ down-test:
 
 # 本番環境の停止
 down-prod:
-	docker-compose -f docker-compose.yml down
+	docker compose -f docker-compose.yml down
 
 # 未使用イメージの削除
 rmi:
